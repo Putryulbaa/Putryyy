@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Biodata Basic</title>
+</head>
+<body>
+    <center>
+    <h2>Form Biodata</h2>
+
+    <!-- Form input, data dikirim dengan metode POST -->
+     
+    <form method="post">
+        <!-- Input nama -->
+        Nama: <input type="text" name="nama"><br><br>
+
+        <!-- Input umur -->
+        Nim: <input type="number" name="nim"><br><br>
+        Prodi: <input type="text" name="prodi"><br><br>
+
+
+
+        <!-- Input tinggi badan -->
+       
+
+        <!-- Pilihan status mahasiswa dengan radio button -->
+        Jenis kelamin<br>
+        <input type="radio" name="jenis_kelamin" value="1" id="Laki_laki" checked>
+        <label for="perempuan">Laki-Laki</label><br>
+        <input type="radio" name="jenis_kelamin" value="0" id="perempuan">
+        <label for="perempuan">Perempuan</label><br><br>
+
+        <!-- Input hobi dalam bentuk teks -->
+        Alamat<br>
+        <input type="text" name="alamat"><br><br>
+
+        <!-- Pilihan jurusan dengan radio button -->
+       
+
+        <!-- Tombol kirim -->
+        <input type="submit" value="Kirim">
+    </form>
+   
+
+    <?php
+    // Mengecek apakah form sudah disubmit
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Menyimpan input dari form ke dalam variabel
+        $nama = $_POST["nama"];
+        $nim = (int)$_POST["nim"];
+        $prodi = $_POST["prodi"];
+        
+        // Mengubah nilai isMahasiswa menjadi teks "Ya" atau "Tidak"
+        $jenis_kelamin = $_POST["jenis_kelamin"] == "1" ? "Laki-laki" : "Perempuan";
+
+        // Hobi ditampilkan langsung (tanpa diproses jadi array)
+        $alamat = $_POST["alamat"];
+
+        // Menyimpan pilihan jurusan
+       
+        // Menampilkan hasil input
+        echo "<hr><h3>Hasil Input:</h3>";
+        echo "Nama: $nama<br>";
+        echo "Nim: $nim <br>";
+        echo "Prodi: $prodi <br>";
+        echo "jenis Kelamin: $jenis_kelamin<br>";
+        echo "alamat: $alamat<br>"; 
+        $filecounter = "counter.txt";
+    $fl = fopen($filecounter, "r+");
+
+    $hit = fread($fl, filesize($filecounter));
+
+    echo("<table width=250 align=center border=1 cellspacing=0 cellpadding=0 bordercolor=#0000FF><tr>");
+    echo("<td width=250 valign=middle align=center>");
+    echo("<font face=verdana size=2 color=#FF0000><b>");
+    echo("Anda pengunjung yang ke:");
+    echo($hit);
+    echo("</b></font>");
+    echo("</td>");
+    echo("</tr></table>");
+
+    fclose($fl);
+
+    $fl = fopen($filecounter, "w+");
+
+    $hit = $hit + 1;
+
+ 
+    fwrite($fl, $hit, strlen($hit));
+
+  
+    fclose($fl);
+        // Menampilkan jurusan
+
+    }
+    ?>
+     </center>  
+</body>
+</html>
